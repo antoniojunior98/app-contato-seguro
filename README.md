@@ -1,25 +1,26 @@
 # app-contato-seguro
 
-## Project setup
+## Configuração do projeto
+
+### Instalar vue 3
+```
+npm install -g @vue/cli
+```
+
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Executar projeto para desenvolvimento
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Executar projeto para produção
 ```
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Customize configuration
+### Personalizar configuração
 See [Configuration Reference](https://cli.vuejs.org/config/).
-# app-contato-seguro
