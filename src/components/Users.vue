@@ -167,6 +167,7 @@
               <a-select
                 v-model:value="form.selectedCity"
                 :size="size"
+                :class="form.cityIsInvalid"
                 placeholder="Seleciona Cidade"
                 style="width: 200px;"
                 fieldNames=""
@@ -176,6 +177,9 @@
                          <p> {{ c.name }}</p>
                         </a-select-option>
               </a-select>
+              <div class="invalid-feedback">
+                {{ form.cityError }}
+              </div>
             </div>
             </div>
         </a-form-item>
@@ -345,9 +349,9 @@ export default {
         birthdayError: '',
         birthdayIsInvalid: 'form-control',
         cityError: '',
-        cityIsInvalid: 'form-control',
+        cityIsInvalid: '',
         companiesError: '',
-        companiesIsInvalid: 'form-control'
+        companiesIsInvalid: ''
       },
       companies: [],
       selectedCompany: [],
@@ -525,6 +529,10 @@ export default {
               case 'companies':
                 this.form.companiesError = errors.companies[0]
                 this.form.companiesIsInvalid = 'is-invalid'
+                break;
+              case 'city':
+                this.form.cityError = errors.city[0]
+                this.form.cityIsInvalid = 'is-invalid'
                 break;
               default:
                 break;
@@ -735,7 +743,7 @@ export default {
         birthdayError: '',
         birthdayIsInvalid: 'form-control',
         cityError: '',
-        cityIsInvalid: 'form-control',
+        cityIsInvalid: '',
         companiesError: '',
         companiesIsInvalid: ''
       }
