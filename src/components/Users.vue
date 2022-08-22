@@ -207,7 +207,7 @@
         </a-form>
         </a-spin>
       </a-modal>
-      <a-modal v-model:visible="visibleInfo" title="Informações do CNPJ" @ok="handleOk">
+      <a-modal v-model:visible="visibleInfo" title="Informações do usuário" @ok="handleOk">
         <template #footer></template>
         <p>Nome: {{form.name}}</p>
         <p>E-mail: {{form.email}}</p>
@@ -219,8 +219,14 @@
       </a-modal>
       <a-spin tip="Loading..." :spinning="loading">
       
-              <a-table :dataSource="users" :columns="columns" :pagination="false" style="margin-top: 10px;">
+        <a-table :dataSource="users" :columns="columns" :pagination="false" style="margin-top: 10px;">
           <template #bodyCell="{ column, record }">
+            <template v-if="column.key === 'telephone'">
+                <p>{{formatTelephone(record.telephone)}}</p>
+            </template>
+            <template v-if="column.key === 'birthday'">
+                <p>{{formatDate(record.birthday)}}</p>
+            </template>
             <template v-if="column.key === 'action'">
                 <button type="button" class="btn btn-dark" @click="edit(record.id)"><form-outlined /></button>
                 <button type="button" class="btn btn-dark" @click="del(record.id)" style="margin-left: 10px;"><delete-outlined /></button>
@@ -254,6 +260,7 @@ import { PlusOutlined, FormOutlined, DeleteOutlined, SettingOutlined, DownOutlin
 import Company from './config/Company.vue';
 import State from './config/State.vue';
 import City from './config/City.vue';
+import moment from 'moment';
 
 export default {
   name: 'GetUsers',
@@ -693,6 +700,13 @@ export default {
             })
           }
       })      
+    },
+    formatDate (date) {
+      return moment(date).format('DD/MM/YYYY');
+    },
+    formatTelephone (number) {
+      let formatTelephone = number.length === 11 ? number.match(/(\d{2})(\d{5})(\d{4})/) : number.match(/(\d{2})(\d{4})(\d{4})/);
+      return '('+ formatTelephone[1]+') '+formatTelephone[2]+' - '+formatTelephone[3];
     },
     filterByState() {
       this.getCity();
